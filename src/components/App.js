@@ -5,21 +5,21 @@ import VideosList from './VideosList';
 import youtube from '../api/youtube';
 
 class App extends React.Component {
-    state = { term: '', videosList: [], xx: []};
+    state = { term: '', videosList: [] };
 
-    searchResults = async (term) => {
+    searchResults = async (searchTerm) => {
         const response = await youtube.get('/search', {
             params: {
-                q: term
+                q: searchTerm
             }
         });
 
-        this.setState({ videosList: response.data.items, xx: response });
+        this.setState({ videosList: response.data.items });
     }
 
-    onSearchSubmit = (term) => {
-        this.setState({ term: 'zxcxzc' });
-        this.searchResults(term);
+    onSearchSubmit = (searchTerm) => {
+        this.setState({ term: searchTerm });
+        this.searchResults(searchTerm);
     }
 
     render() {
@@ -32,7 +32,7 @@ class App extends React.Component {
                     <VideoPlayer />
                 </div>
                 <div className="right floated six wide column">
-                    <VideosList videosList={this.state.videosList} videoajdi={this.state.xx}/>
+                    <VideosList videosList={this.state.videosList} />
                 </div>
             </div>
         );
